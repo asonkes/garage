@@ -25,8 +25,7 @@ class AnnonceType extends AbstractType
             ->add('date')
             ->add('transmission')
             ->add('description')
-            ->add('texte')
-        ;
+            ->add('texte');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
