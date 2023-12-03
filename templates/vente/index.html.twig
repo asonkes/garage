@@ -26,7 +26,7 @@
 						{{ voiture.price }}
 						euros
 					</p>
-					<a class="btn btn-secondary mb-2" href="#" {#{{ path('vente_show', {'slug':voiture.slug} )}}#}" role=" button">En savoir plus</a>
+					<a class="btn btn-secondary mb-2" href="{{ path('vente_show', {'slug':voiture.slug} )}}" role=" button">En savoir plus</a>
 				</div>
 			{% endfor %}
 		</div>
