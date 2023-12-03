@@ -1,11 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home
+{% block title %}Bienvenue
 {% endblock %}
 
 {% block body %}
-
-	<div>
-		<h1>Bonjour</h1>
+	<div class="container">
+		<div class="mt-3">
+			<h1 class="display-3">Bienvenue chez SpeedCare</h1>
+			<p class="lead">Nous faisons en sorte de vous servir depuis plus de 40ans.
+				<br>
+				Un service de qualité, une volonté de faire au mieux et tout cela à un prix démocratique.
+				<br>
+				Bref, nous aimons notre métier!!!
+			</p>
+			<p class="lead">Une réparation, un contrôle technique, une voiture en occassion? N'hésitez pas !!!</p>
+			<hr class="my-4">
+			<div class="container mb-5">
+				<img class="img-fluid img-thumbnail" src="{{ asset('images/porte-roulante-volet-roulant-utilisant-pour-entrepot-usine-generative-ai_91128-2383.avif') }}">
+			</div>
+		</div>
 	</div>
 {% endblock %}

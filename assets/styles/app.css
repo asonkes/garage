@@ -1,3 +1,8 @@
-body {
-    background-color: red;
+.body {
+    background-color: #9b6500;
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
 }
