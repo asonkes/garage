@@ -8,6 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VenteController extends AbstractController
 {
+    /**
+     * Permet de pouvoir créer des annonces, de pouvoir avoir accès à la page "Vente"
+     *
+     * @return Response
+     */
     #[Route('/vente', name: 'vente')]
     public function index(): Response
     {
