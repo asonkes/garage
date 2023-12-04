@@ -4,21 +4,20 @@
 	{{voiture.marque}}
 {% endblock %}
 
-{#
-{% form_theme myForm 'vente/_collection.html.twig' %}
-#}
+{% form_theme form 'vente/_collection.html.twig' %}
 
 {% block body %}
 
 	<div class="container">
 		<h1>Modification de l'annonce :
 			<strong>{{voiture.marque}}</strong>
+			<strong>{{voiture.modele}}</strong>
 		</h1>
 
 		{{form_start(form)}}
 
 		{{form_widget(form)}}
-		<button type="submit" class="btn btn-warning mt-3">Modifier</button>
+		<button type="submit" class="btn btn-warning mb-5">Modification de l'annonce</button>
 
 		{{form_end(form)}}
 

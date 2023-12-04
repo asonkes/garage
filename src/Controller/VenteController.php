@@ -15,6 +15,7 @@ class VenteController extends AbstractController
 {
     /**
      * Permet de pouvoir mettre des annonces
+     * Voiturerepository $repo ==> permet de pouvoir gérer les requêtes de bases de données (spécifique ini, à "voiture".)
      *
      * @param VoitureRepository $repo
      * @return Response
@@ -23,6 +24,11 @@ class VenteController extends AbstractController
     public function index(VoitureRepository $repo): Response
     {
         // On met "voitures" au pluriel pour pouvoir récupérer toutes les voitures
+        //
+        /**
+         * Fonctionnement de la fonction FindAll(), permet de trouver toutes composants de l'entité "voiture"
+         * On met "voitures" au pluriel car plusieurs "voitures" à trouver
+         */
         $voitures = $repo->findAll();
         return $this->render('vente/index.html.twig', [
             'voitures' => $voitures,
@@ -64,10 +70,18 @@ class VenteController extends AbstractController
         ]);
     }
 
+    /**
+     * Ici, on utilise "id" car les objets "voiture" sont identifiés de manière unqiue par un identifiant.
+     * 
+     * $request est un objet "request" contenant toute sle sinformations de la requête sql, y compris les données du formulaire.
+     * 
+     * $manager est un objet "EntityManagerInterface" qui gère la persistance des entités(objets) dans la base de données.
+     */
     #[Route("/vente/{id}/edit", name: 'edit')]
     public function edit(Request $request, EntityManagerInterface $manager, Voiture $voiture): Response
     {
         $form = $this->createForm(AnnonceType::class, $voiture);
+        // Traite la requête HTTP actuelle avec les données du formulaire.
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,6 +93,7 @@ class VenteController extends AbstractController
             }
 
             $manager->persist($voiture);
+
             $manager->flush();
 
             $this->addFlash(
@@ -106,12 +121,15 @@ class VenteController extends AbstractController
     public function show(voiture $voiture): Response
     {
         /**
-         * $images = $voiture->getImages(); Ici je fais appel à la méthode getImages sur l'objet voiture et que j'attends d'avoir des images reliées à cet objet voiture...
+         * Ici, on n'utilise pas $Voiture car ici, on a une partie dynamique {slug} qui est passé en tant que paramètre de fonction de con automatique pour convertir cette partie dynamique de l'URL en un objet de type "voiture"
+         * 
+         * Donc on va chercher dans la base de données, l'objet "voiture", correspondant à la valeur du "slug" = id (cela se fait par le système de routage) 
          */
         $images = $voiture->getImages();
         return $this->render('vente/show.html.twig', [
             'voiture' => $voiture,
-            // Ici, on met "image" au pluriel car on a plusieurs images (inverse que sur index.html.twig)
+
+            //Ici, "image" = pluriel plusieurs images.
             'images' => $images
         ]);
     }

@@ -15,6 +15,25 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
  */
 class AppFixtures extends Fixture
 {
+    const IMAGE_URLS = [
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27408/outside_360/12.jpg?itok=yMOGSljY',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27408/outside_360/11.jpg?itok=wzRbKFZK',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures/d0606367-eac1-4887-9e89-eeff76f3db38.jpg?itok=IYrTByTT',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures/d4554765-ee09-447c-a271-f2521e533972.jpg?itok=9AxmCNBg',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/25125/outside_360/12.jpg?itok=5dKEEEsY',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/25125/outside_360/11.jpg?itok=XAc4H_-E',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/12.jpg?itok=A1NMOhyM',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/11.jpg?itok=Lw5rP_jz',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/10.jpg?itok=PpJN9Kqh',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/12.jpg?itok=1qeEtcJ0',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/11.jpg?itok=GYU6yXPt',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/5.jpg?itok=hwvAaK1q',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/26979/outside_360/12.jpg?itok=JTUnF59X',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/26979/outside_360/11.jpg?itok=kwIFY5Rj',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27715/outside_360/12.jpg?itok=lyewFX8N',
+        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27715/outside_360/11.jpg?itok=gEePhE5C'
+    ];
+
     public function load(ObjectManager $manager): void
     {
 
@@ -26,26 +45,7 @@ class AppFixtures extends Fixture
 
             $voiture->setMarque($faker->randomElement(['Ford', 'Peugeot', 'Opel', 'Fiat', 'Hyundai', 'Volswagen', 'Citroen', 'Dacia', 'Renault', 'Toyota', 'Kia']))
                 ->setModele($faker->word)
-                ->setCover($faker->randomElement(
-                    [
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27408/outside_360/12.jpg?itok=yMOGSljY',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27408/outside_360/11.jpg?itok=wzRbKFZK',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures/d0606367-eac1-4887-9e89-eeff76f3db38.jpg?itok=IYrTByTT',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures/d4554765-ee09-447c-a271-f2521e533972.jpg?itok=9AxmCNBg',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/25125/outside_360/12.jpg?itok=5dKEEEsY',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/25125/outside_360/11.jpg?itok=XAc4H_-E',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/12.jpg?itok=A1NMOhyM',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/11.jpg?itok=Lw5rP_jz',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/10.jpg?itok=PpJN9Kqh',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/12.jpg?itok=1qeEtcJ0',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/11.jpg?itok=GYU6yXPt',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/5.jpg?itok=hwvAaK1q',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/26979/outside_360/12.jpg?itok=JTUnF59X',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/26979/outside_360/11.jpg?itok=kwIFY5Rj',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27715/outside_360/12.jpg?itok=lyewFX8N',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27715/outside_360/11.jpg?itok=gEePhE5C'
-                    ]
-                ))
+                ->setCover($faker->randomElement($faker->randomElement(self::IMAGE_URLS)))
                 ->setKm($faker->numberBetween(10000, 400000))
                 ->setPrice($faker->numberBetween(10000, 80000))
                 ->setNbproprio($faker->numberBetween(1, 6))
@@ -66,24 +66,7 @@ class AppFixtures extends Fixture
                 $image = new Image();
 
                 $image->setVoiture($voiture)
-                    ->setUrl($faker->randomElement([
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27408/outside_360/12.jpg?itok=yMOGSljY',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27408/outside_360/11.jpg?itok=wzRbKFZK',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures/d0606367-eac1-4887-9e89-eeff76f3db38.jpg?itok=IYrTByTT',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures/d4554765-ee09-447c-a271-f2521e533972.jpg?itok=9AxmCNBg',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/25125/outside_360/12.jpg?itok=5dKEEEsY',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/25125/outside_360/11.jpg?itok=XAc4H_-E',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/12.jpg?itok=A1NMOhyM',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/11.jpg?itok=Lw5rP_jz',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27379/outside_360/10.jpg?itok=PpJN9Kqh',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/12.jpg?itok=1qeEtcJ0',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/11.jpg?itok=GYU6yXPt',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27276/outside_360/5.jpg?itok=hwvAaK1q',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/26979/outside_360/12.jpg?itok=JTUnF59X',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/26979/outside_360/11.jpg?itok=kwIFY5Rj',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27715/outside_360/12.jpg?itok=lyewFX8N',
-                        'https://soco.be/sites/default/files/styles/gallery_big/public/images/cars-pictures-carlab/27715/outside_360/11.jpg?itok=gEePhE5C'
-                    ]))
+                    ->setUrl($faker->randomElement(self::IMAGE_URLS))
                     ->setCaption($faker->sentence);
 
                 $manager->persist($image);

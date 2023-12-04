@@ -47,7 +47,7 @@
 				</div>
 
 				<div>
-					<a class="btn btn-primary mt-2" href="#" {#{{ path('edit', {'id':voiture.id} )}}#}" role=" button">Modification de l'annonce</a>
+					<a class="btn btn-primary mt-2" href="{{ path('edit', {'id':voiture.id} )}}" role=" button">Modification de l'annonce</a>
 				</div>
 
 				<div>
@@ -57,6 +57,7 @@
 
 			<!-- Carrousel d'images indépendantes -->
 
+			<!-- Carrousel d'images indépendantes -->
 			<div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-news-actus col-sm-8 mt-5" data-bs-ride="carousel">
 				<ol class="carousel-indicators" id="carousel-indicators">
 					{% for image in voiture.getImages() %}
@@ -65,7 +66,7 @@
 				</ol>
 				<div class="carousel-inner">
 					{% for image in voiture.getImages() %}
-						<div class="carousel-item{% if loop.first %}active{% endif %}">
+						<div class="carousel-item{% if loop.first %} active{% endif %}">
 							<img id="image-voiture2" src="{{ image.Url }}" alt="">
 						</div>
 					{% endfor %}
@@ -80,6 +81,4 @@
 				</a>
 			</div>
 		</div>
-
-
 	{% endblock %}
