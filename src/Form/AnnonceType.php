@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Voiture;
+use App\Form\ImageType;
 use App\Form\ApplicationType;
-
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 
 class AnnonceType extends ApplicationType
 {
@@ -23,7 +24,7 @@ class AnnonceType extends ApplicationType
             ->add('cover', TextType::class, $this->getConfiguration("Url de l'image", "Donnez le nom de votre voiture"))
             ->add('km', IntegerType::class, $this->getConfiguration("Km", "Nombre de km de la voiture"))
             ->add('price', MoneyType::class, $this->getConfiguration("Prix", "Prix de la voiture"))
-            ->add('nbProprio',)
+            ->add('nbProprio', IntegerType::class, $this->getConfiguration("Nombre de proprio", "Donnez le nombre de propriétaire"))
             ->add(
                 'cylindree',
                 IntegerType::class,

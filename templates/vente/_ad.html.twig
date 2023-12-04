@@ -1,0 +1,19 @@
+{% set url = path('vente_show') %}
+<div class="col-md-4">
+	<div class="card bg-light mb-3">
+		<div class="card-header text-center">
+			{{voiture.marque}}
+			Bouquet
+			<strong>{{voiture.price}}€ / bouquet</strong>
+			<br>
+		</div>
+		<a href="{{url}}">
+			<img src="{{voiture.cover}}" alt="image de l'annonce {{voiture.name}}" class="starsimg">
+		</a>
+		<div class="card-body">
+			<h4 class="card-title">{{voiture.marque}}</h4>
+			<p class="card-text">{{voiture.description}}</p>
+			<a href="{{url}}" class="btn btn-secondary">En savoir plus</a>
+		</div>
+	</div>
+</div>

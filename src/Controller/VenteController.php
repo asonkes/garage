@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Voiture;
+use App\Form\AnnonceType;
 use App\Repository\VoitureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,17 +94,6 @@ class VenteController extends AbstractController
             "form" => $form->createView()
         ]);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Permet de faire en sorte que lorsque je clique sur le bouton "en savoir plus", je puisse avoir le descriptif de l'annonce.
