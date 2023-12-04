@@ -63,6 +63,48 @@ class VenteController extends AbstractController
         ]);
     }
 
+    #[Route("/vente/{id}/edit", name: 'edit')]
+    public function edit(Request $request, EntityManagerInterface $manager, Voiture $voiture): Response
+    {
+        $form = $this->createForm(AnnonceType::class, $voiture);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // gestion des images 
+            foreach ($voiture->getImages() as $image) {
+                $image->setVoiture($voiture);
+                $manager->persist($image);
+            }
+
+            $manager->persist($voiture);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "L'annonce <strong>" . $voiture->getMarque() . "</strong> a bien été modifiée!"
+            );
+
+            return $this->redirectToRoute('vente');
+        }
+
+        return $this->render("vente/edit.html.twig", [
+            "voiture" => $voiture,
+            "form" => $form->createView()
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Permet de faire en sorte que lorsque je clique sur le bouton "en savoir plus", je puisse avoir le descriptif de l'annonce.
      * Et donc l'annonce en entier.
