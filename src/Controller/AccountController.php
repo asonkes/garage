@@ -5,12 +5,34 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AccountController extends AbstractController
 {
-    #[Route('/account', name: 'account')]
-    public function index(): Response
+    /**
+     * Permet à l'utilisateur de se connecter
+     *
+     * @return Response
+     */
+    #[Route('/login', name: 'account')]
+    public function index(AuthenticationUtils $utils): Response
     {
-        return $this->render('account/index.html.twig', []);
+        $error = $utils->getLastAuthenticationError();
+        $username = $utils->getLastUsername();
+
+        return $this->render('account/index.html.twig', [
+            'hasError' => $error !== null,
+            'username' => $username
+        ]);
+    }
+
+    /**
+     * Permet à l'utilisateur de se déconnecter
+     *
+     * @return void
+     */
+    #[Route("/logout", name: "account_logout")]
+    public function logout(): void
+    {
     }
 }
