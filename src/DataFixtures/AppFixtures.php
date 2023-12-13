@@ -2,27 +2,60 @@
 
 namespace App\DataFixtures;
 
-use DateTime;
+use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Voiture;
 use Faker\Factory as FakerFactory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Fixtures ==> permettent de remplir le contenu de la base de données...
  */
 class AppFixtures extends Fixture
 {
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
 
     public function load(ObjectManager $manager): void
     {
         $faker = FakerFactory::create('fr_FR');
 
+        // gestion des utilisateurs 
+        $users = []; // init d'un tableau pour récup des user pour les annonces
+        $genres = ['male', 'femelle'];
+
+        for ($u = 1; $u <= 10; $u++) {
+            $user = new User();
+            $genre = $faker->randomElement($genres);
+
+            $hash = $this->passwordHasher->hashPassword($user, 'password');
+
+            $user->setFirstname($faker->firstname($genre))
+                ->setLastname($faker->lastname())
+                ->setEmail($faker->email())
+                ->setIntroduction($faker->sentence())
+                ->setDescription('<p>' . join('</p><p>', $faker->paragraphs(3)) . '</p>')
+                ->setPassword($hash)
+                ->setPicture('');
+
+            $manager->persist($user);
+
+            $users[] = $user; // ajouter un user au tableau (pour les annonces)
+
+        }
+
         for ($i = 1; $i <= 18; $i++) {
 
             $voiture = new Voiture();
 
+            // liaison avec l'user
+            $user = $users[rand(0, count($users) - 1)];
 
             $voiture->setMarque($faker->randomElement(['Ford', 'Peugeot', 'Opel', 'Fiat', 'Hyundai', 'Volswagen', 'Citroen', 'Dacia', 'Renault', 'Toyota', 'Kia']))
                 ->setModele($faker->word)
@@ -49,10 +82,12 @@ class AppFixtures extends Fixture
                 ->setCylindree($faker->randomFloat(2, 1.0, 5.0))
                 ->setPuissance($faker->randomNumber(2))
                 ->setCarburant($faker->randomElement(['Diesel', 'Essence']))
-                ->setDate(new DateTime())
+                ->setDate($faker->dateTimeBetween(('-3 months')))
                 ->setTransmission($faker->randomElement(['Automatique', 'Manuelle']))
                 ->setDescription($faker->sentence)
-                ->setTexte($faker->paragraph);
+                ->setTexte($faker->paragraph)
+                ->setSlug($faker->sentence)
+                ->setAuthor($user);
             /**
              * Utilisé pour garder les informations en mémoire, doit être mis dans la boucle, au sinon, ne donne qu'un résultat dans la base de données.
              */
@@ -82,6 +117,9 @@ class AppFixtures extends Fixture
                     ]))
                     ->setCaption($faker->sentence);
 
+                /**
+                 * Utilisé pour garder les informations en mémoire
+                 */
                 $manager->persist($image);
             }
         }
