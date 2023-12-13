@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Permet de comprendre à doctrine quelle classe doit être utilisée poour le repository associé à l'entité (donc ici, à image)
+ */
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {

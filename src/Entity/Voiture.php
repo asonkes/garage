@@ -10,6 +10,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\HasLifecycleCallbacks]
+/**
+ * Permet de comprendre à doctrine quelle classe doit être utilisée poour le repository associé à l'entité (donc ici, à voiture)
+ */
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
 class Voiture
 {
