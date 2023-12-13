@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\VoitureRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\VoitureRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
 class Voiture
 {
@@ -55,7 +57,7 @@ class Voiture
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $texte = null;
 
     #[ORM\OneToMany(mappedBy: 'voiture', targetEntity: Image::class, orphanRemoval: true)]
@@ -66,6 +68,26 @@ class Voiture
         $this->images = new ArrayCollection();
     }
 
+    /**
+     * Permet d'initialiser le slug automatiquement si on ne le donne pas...
+     *
+     * @return void
+     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function initializeSlug(): void
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->marque);
+        }
+    }
+
+    /**
+     * function = méthode à laquelle on peut avoir accès depuis l'intérieur et depuis l'extérieur de la méthode...
+     *
+     * @return integer|null
+     */
     public function getId(): ?int
     {
         return $this->id;

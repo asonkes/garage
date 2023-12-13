@@ -81,6 +81,7 @@ class VenteController extends AbstractController
     public function edit(Request $request, EntityManagerInterface $manager, Voiture $voiture): Response
     {
         $form = $this->createForm(AnnonceType::class, $voiture);
+
         // Traite la requête HTTP actuelle avec les données du formulaire.
         $form->handleRequest($request);
 
@@ -121,7 +122,7 @@ class VenteController extends AbstractController
     public function show(voiture $voiture): Response
     {
         /**
-         * Ici, on n'utilise pas $Voiture car ici, on a une partie dynamique {slug} qui est passé en tant que paramètre de fonction de con automatique pour convertir cette partie dynamique de l'URL en un objet de type "voiture"
+         * Ici, on n'utilise pas $Voiture car ici, on a une partie dynamique {slug} qui est passé en tant que paramètre de fonction automatique pour convertir cette partie dynamique de l'URL en un objet de type "voiture"
          * 
          * Donc on va chercher dans la base de données, l'objet "voiture", correspondant à la valeur du "slug" = id (cela se fait par le système de routage) 
          */

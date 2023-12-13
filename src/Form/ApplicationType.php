@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 
 /**
  * ApplicationType est une classe abstraite qui étend AbstractType.
- * Elle définit une méthode qui est getConfiguration(label + placeholder + tableau ==> option)
+ * Elle définit une méthode qui est getConfiguration(label + placeholder + tableau(option))
  */
 class ApplicationType extends AbstractType
 {

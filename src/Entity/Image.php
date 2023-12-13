@@ -52,6 +52,11 @@ class Image
         return $this;
     }
 
+    /**
+     * Caption = sorte de commentaire/titre au-dessus ou en-dessous de l'image...
+     *
+     * @return string|null
+     */
     public function getCaption(): ?string
     {
         return $this->caption;
