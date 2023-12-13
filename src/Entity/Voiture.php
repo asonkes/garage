@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[UniqueEntity(fields: ['marque'], message: "Une autre annonce possède déjà ce titre, merci de le modifier")]
+#[UniqueEntity(fields: ['modele'], message: "Une autre annonce possède déjà ce titre, merci de le modifier")]
 
 class Voiture
 {
@@ -26,11 +26,10 @@ class Voiture
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 10, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
     private ?string $marque = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 10, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
+    #[Assert\Length(min: 5, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
     private ?string $modele = null;
 
     #[ORM\Column(length: 255)]
@@ -62,7 +61,7 @@ class Voiture
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 10, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
+    #[Assert\Length(min: 5, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
     private ?string $transmission = null;
 
     #[ORM\Column(length: 255)]
@@ -70,7 +69,7 @@ class Voiture
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 100, max: 255, minMessage: "Votre description doit faire plus de 100 caractères")]
+    #[Assert\Length(min: 10, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
     private ?string $texte = null;
 
     #[ORM\OneToMany(mappedBy: 'voiture', targetEntity: Image::class, orphanRemoval: true)]
