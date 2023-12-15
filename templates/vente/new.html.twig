@@ -1,29 +1,24 @@
 {% extends "base.html.twig" %}
 
+
 {% block title %}Création d'une annonce
 {% endblock %}
+
+{% form_theme myForm 'vente/_collection.html.twig' %}
 
 {% block body %}
 	<div class="container">
 		<h1>Création d'une nouvelle annonce</h1>
 
-		<!-- Permet d'afficher la balise ouvrante "form" !-->
 		{{ form_start(myForm) }}
 
-		{{form_widget(myForm)}}
+		{{form_widget(myForm)}}<button type="submit" class="btn btn-primary mb-5">
+			Création d'une annonce</button>
 
-		<div>
-			<button type="submit" class="btn btn-primary mb-3">Ajouter une image</button>
-		</div>
-
-		<div>
-			<button type="submit" class="btn btn-primary mb-5">Modification de l'annonce</button>
-		</div>
-
-		<!-- Permet de fermer le formulaire !-->
 		{{ form_end(myForm) }}
 	</div>
 {% endblock %}
+
 
 {% block javascripts %}
 	{{encore_entry_script_tags('annonce')}}

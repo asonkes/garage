@@ -26,10 +26,11 @@ class Voiture
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner la marque de la voiture")]
     private ?string $marque = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
+    #[Assert\NotBlank(message: "Veuillez renseigner le modèle de la voiture")]
     private ?string $modele = null;
 
     #[ORM\Column(length: 255)]
@@ -40,28 +41,33 @@ class Voiture
     private ?string $slug = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Veuillez renseigner le nombre de km de la voiture")]
     private ?int $km = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 8, scale: 2)]
     private ?string $price = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
+    #[Assert\NotBlank(message: "Veuillez renseigner le nombre de propriétaire qui ont possédé la voiture auparavant")]
     private ?int $nbProprio = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Veuillez renseigner la cylindrée de la voiture")]
     private ?int $cylindree = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
+    #[Assert\NotBlank(message: "Veuillez renseigner le type de puissance de la voiture")]
     private ?int $puissance = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner le type de carburant de la voiture")]
     private ?string $carburant = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
+    #[Assert\Length(min: 5, max: 255, minMessage: "Le titre doit faire plus de 5 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
     private ?string $transmission = null;
 
     #[ORM\Column(length: 255)]
@@ -70,7 +76,7 @@ class Voiture
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 10, max: 255, minMessage: "Le titre doit faire plus de 10 caractères", maxMessage: "Le titre ne doit pas faire plus de 255 caractères")]
-    private ?string $texte = null;
+    private string $texte = '';
 
     #[ORM\OneToMany(mappedBy: 'voiture', targetEntity: Image::class, orphanRemoval: true)]
     #[Assert\Valid()]

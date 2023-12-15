@@ -9,10 +9,59 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class VenteController extends AbstractController
 {
+    /**
+     * Permet de pouvoir ajouter une annonce 
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    #[Route('/vente/new', name: 'new')]
+    public function create(Request $request, EntityManagerInterface $manager): Response
+    {
+        $voiture = new Voiture();
+
+        $myForm = $this->createForm(AnnonceType::class, $voiture);
+
+        $myForm->handleRequest($request);
+
+        if ($myForm->isSubmitted() && $myForm->isValid()) {
+
+            // gestion des images 
+            foreach ($voiture->getImages() as $image) {
+                $image->setVoiture($voiture);
+                $manager->persist($image);
+            }
+
+            // intégration du user
+            $voiture->setAuthor($this->getUser());
+
+            $manager->persist($voiture);
+
+            # j'envoie les persistances à la base de données.
+            $manager->flush();
+
+            # Permet d'avoir un message "Flash", d'où "addFlash" pour dire que l'annonce a bien été enregistrée !!!
+            $this->addFlash('success', "L'annonce <strong>" . $voiture->getMarque() . "</strong> a bien été enregistrée");
+
+            /**
+             * Redirige si par exemple, l'annonce a bien été enregistrée, je retourne vars la page "show".
+             */
+            return $this->redirectToRoute('vente_show', [
+                'slug' => $voiture->getSlug()
+            ]);
+        }
+
+        return $this->render('vente/new.html.twig', [
+            'myForm' => $myForm->createView()
+        ]);
+    }
+
     /**
      * Permet de pouvoir mettre des annonces
      * Voiturerepository $repo ==> permet de pouvoir gérer les requêtes de bases de données (spécifique ini, à "voiture".)
@@ -32,41 +81,6 @@ class VenteController extends AbstractController
         $voitures = $repo->findAll();
         return $this->render('vente/index.html.twig', [
             'voitures' => $voitures,
-        ]);
-    }
-
-    /**
-     * Permet de pouvoir ajouter une annonce 
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
-     */
-    #[Route('/vente/new', name: 'new')]
-    public function create(Request $request, EntityManagerInterface $manager): Response
-    {
-        $voiture = new Voiture();
-        $myForm = $this->createForm(AnnonceType::class, $voiture);
-
-        $myForm->handleRequest($request);
-
-        if ($myForm->isSubmitted() && $myForm->isValid()) {
-            $manager->persist($voiture);
-
-            # j'envoie les persistances à la base de données.
-            $manager->flush();
-
-            # Permet d'avoir un message "Flash", d'où "addFlash" pour dire que l'annonce a bien été enregistrée !!!
-            $this->addFlash('success', "L'annonce <strong>" . $voiture->getMarque() . "</strong> a bien été enregistrée");
-
-            /**
-             * Redirige si par exemple, l'annonce a bien été enregistrée, je retourne vars la page "show".
-             */
-            return $this->redirectToRoute('new');
-        }
-
-        return $this->render('vente/new.html.twig', [
-            'myForm' => $myForm->createView()
         ]);
     }
 
@@ -102,12 +116,14 @@ class VenteController extends AbstractController
                 "L'annonce <strong>" . $voiture->getMarque() . "</strong> a bien été modifiée!"
             );
 
-            return $this->redirectToRoute('vente');
+            return $this->redirectToRoute('vente', [
+                'slug' => $voiture->getSlug()
+            ]);
         }
 
         return $this->render("vente/edit.html.twig", [
             "voiture" => $voiture,
-            "form" => $form->createView()
+            "myForm" => $form->createView()
         ]);
     }
 

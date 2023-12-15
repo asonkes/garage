@@ -21,7 +21,10 @@ security:
                 check_path: account_login
             logout:
                 path: account_logout
-                target: account_login       
+                target: account_login   
+            login_throttling:
+                max_attempts: 3          # per minute ...
+                interval: '15 minutes' # ... or in a custom period     
 
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }

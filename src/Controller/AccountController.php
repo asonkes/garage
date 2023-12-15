@@ -14,7 +14,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/login', name: 'account')]
+    #[Route('/login', name: 'account_login')]
     public function index(AuthenticationUtils $utils): Response
     {
         $error = $utils->getLastAuthenticationError();
