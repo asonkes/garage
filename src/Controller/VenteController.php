@@ -22,6 +22,8 @@ class VenteController extends AbstractController
      * @return Response
      */
     #[Route('/vente/new', name: 'new')]
+    // Renvoi directement à la page connexion ==> sécurité, n'importe qui ne peut pas modifier une annonce dans le site
+    #[IsGranted('ROLE_USER')]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $voiture = new Voiture();
@@ -38,15 +40,15 @@ class VenteController extends AbstractController
                 $manager->persist($image);
             }
 
-            // intégration du user
+            // Intégration du user
             $voiture->setAuthor($this->getUser());
 
             $manager->persist($voiture);
 
-            # j'envoie les persistances à la base de données.
+            // J'envoie les persistances à la base de données.
             $manager->flush();
 
-            # Permet d'avoir un message "Flash", d'où "addFlash" pour dire que l'annonce a bien été enregistrée !!!
+            // Permet d'avoir un message "Flash", d'où "addFlash" pour dire que l'annonce a bien été enregistrée !!!
             $this->addFlash('success', "L'annonce <strong>" . $voiture->getMarque() . "</strong> a bien été enregistrée");
 
             /**
@@ -72,11 +74,11 @@ class VenteController extends AbstractController
     #[Route('/vente', name: 'vente')]
     public function index(VoitureRepository $repo): Response
     {
-        // On met "voitures" au pluriel pour pouvoir récupérer toutes les voitures
-        //
         /**
          * Fonctionnement de la fonction FindAll(), permet de trouver toutes composants de l'entité "voiture"
          * On met "voitures" au pluriel car plusieurs "voitures" à trouver
+         * 
+         * On met "voitures" au pluriel pour pouvoir récupérer toutes les voitures
          */
         $voitures = $repo->findAll();
         return $this->render('vente/index.html.twig', [
@@ -129,6 +131,7 @@ class VenteController extends AbstractController
 
     /**
      * Permet de faire en sorte que lorsque je clique sur le bouton "en savoir plus", je puisse avoir le descriptif de l'annonce.
+     * 
      * Et donc l'annonce en entier.
      *
      * @param voiture $voiture
