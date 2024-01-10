@@ -35,4 +35,14 @@ class AccountController extends AbstractController
             'loginError' => $loginError
         ]);
     }
+
+    /**
+     * Permet de se déconnecter
+     *
+     * @return void
+     */
+    #[Route("/logout", name: "account_logout")]
+    public function logout(): void
+    {
+    }
 }
