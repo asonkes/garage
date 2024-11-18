@@ -94,6 +94,7 @@ class VenteController extends AbstractController
      * $manager est un objet "EntityManagerInterface" qui gère la persistance des entités(objets) dans la base de données.
      */
     #[Route("/vente/{id}/edit", name: 'edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit(Request $request, EntityManagerInterface $manager, Voiture $voiture): Response
     {
         $form = $this->createForm(AnnonceType::class, $voiture);
