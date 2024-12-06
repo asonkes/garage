@@ -5,14 +5,14 @@
 
 
 {% block body %}
-	<div class="container mt-5">
+	<div class="container mt-0">
 		<div class="row">
 			<div class="col-sm-8">
 				<h1 class="mt-2">
 					<span>{{ voiture.marque }}</span>
 					<span>{{ voiture.modele }}</span>
 				</h1>
-				<img id="image-voiture" class="img-fluid" src="{{ voiture.cover }}">
+				<img id="image-voiture" class="img-fluid object-fit-cover" src="{{ voiture.cover }}">
 			</div>
 			<div class="col-sm-4 mt-5">
 				<p class="mt-3">Nombre de kilométres :
@@ -49,12 +49,38 @@
 			</div>
 
 			<!-- Carrousel d'images indépendantes -->
-			<div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-news-actus col-sm-8 mt-5" data-bs-ride="carousel">
-				<ol class="carousel-indicators" id="carousel-indicators">
+			<!--
+																																				<div id="carouselExampleIndicators" class="carousel slide carousel-fade carousel-news-actus col-sm-8 mt-4" data-bs-ride="carousel">
+																																					<ol class="carousel-indicators mt-0 p-2" id="carousel-indicators">
+																																						{% for image in voiture.getImages() %}
+																																							<li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" {% endif %}></li>
+																																						{% endfor %}
+																																					</ol>
+																																					<div class="carousel-inner">
+																																						{% for image in voiture.getImages() %}
+																																							<div class="carousel-item{% if loop.first %} active{% endif %}">
+																																								<img id="image-voiture2" src="{{ image.Url }}" alt="">
+																																							</div>
+																																						{% endfor %}
+																																					</div>
+																																					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+																																						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+																																						<span class="visually-hidden">Previous</span>
+																																					</a>
+																																					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+																																						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+																																						<span class="visually-hidden">Next</span>
+																																					</a>
+																																				</div>
+																																				-->
+
+
+			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators" id="carousel-indicators">
 					{% for image in voiture.getImages() %}
 						<li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" {% endif %}></li>
 					{% endfor %}
-				</ol>
+				</div>
 				<div class="carousel-inner">
 					{% for image in voiture.getImages() %}
 						<div class="carousel-item{% if loop.first %} active{% endif %}">
@@ -62,14 +88,14 @@
 						</div>
 					{% endfor %}
 				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 					<span class="visually-hidden">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
 					<span class="visually-hidden">Next</span>
-				</a>
+				</button>
 			</div>
 		</div>
 	{% endblock %}
