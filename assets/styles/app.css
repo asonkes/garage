@@ -13,8 +13,8 @@
 }
 
 .logo {
-    height: 50px;
-    width: 50px;
+    height: 50px !important;
+    width: 50px !important;
 }
 
 #image-voiture {
@@ -25,6 +25,10 @@
     height: 150px;
     margin-left: 80px;
     margin-bottom: 50px;
+}
+
+.img-voiture-cover {
+    max-height: 150px !important;
 }
 
 #carouselExampleIndicators {

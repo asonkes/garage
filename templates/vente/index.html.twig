@@ -15,8 +15,8 @@
 						<span>{{ voiture.marque }}</span><br>
 						<span>{{ voiture.modele }}</span>
 					</h2>
-					<a href="{{ voiture.cover }}">
-						<img class="img-fluid" src="{{ voiture.cover }}">
+					<a href="{{ asset('images/images_voitures_cover/' ~ voiture.cover) }}">
+						<img class="img-thumbnail img-voiture-cover " src="{{ asset('images/images_voitures_cover/' ~ voiture.cover) }}">
 					</a>
 					<p class="mt-3">Nombre de Kilomètres:
 						{{ voiture.km }}
